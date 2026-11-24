@@ -12,6 +12,11 @@
     <main>
         <h1>Bienvenue</h1>
         <p>Page d'accueil en construction.</p>
+        {{if .Error}}
+        <p class="error">{{.Error}}</p>
+    {{else}}
+        <p>Recherches utilisées : {{.Quota.QuotaUsed}} / {{.Quota.Quota}}</p>
+    {{end}}
     </main>
 
     {{template "footer" .}}
