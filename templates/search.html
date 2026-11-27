@@ -11,6 +11,22 @@
 
     <main>
         <h1>Recherche</h1>
+        <form action="/search" method="post" enctype="multipart/form-data">
+            <label for="image">Choisir une capture d’écran</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <button type="submit">Envoyer</button>
+        </form>
+
+        {{if .Message}}
+        <p>{{.Message}}</p>
+        {{end}}
+
+        {{with .Result}}
+        <h2>{{.Title}}</h2>
+        {{if .Episode}}<p>Épisode {{.Episode}}</p>{{end}}
+        <p>Scène de {{printf "%.1f" .From}} s à {{printf "%.1f" .To}} s</p>
+        <p>Similarité {{printf "%.1f" .SimilarityPercent}} %</p>
+        {{end}}
     </main>
 
     {{template "footer" .}}
