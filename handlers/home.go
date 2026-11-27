@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 
 	"trace.moe-whatanime/api"
@@ -24,19 +23,5 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	} else {
 		data.Quota = quota
 	}
-	tmpl, err := template.ParseFiles(
-		"templates/index.html",
-		"templates/partials/header.html",
-		"templates/partials/footer.html",
-	)
-	if err != nil {
-		http.Error(w, "Erreur lors du chargement du template", http.StatusInternalServerError)
-		return
-	}
-	err = tmpl.Execute(w, data)
-	if err != nil {
-		fmt.Println("Erreur template:", err)
-		http.Error(w, "Erreur lors de l'affichage de la page", http.StatusInternalServerError)
-		return
-	}
+	renderPage(w, "index.html", http.StatusOK, data)
 }

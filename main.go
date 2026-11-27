@@ -7,11 +7,23 @@ import (
 	"trace.moe-whatanime/handlers"
 )
 
+func routes() *http.ServeMux {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/{$}", handlers.Home)
+	mux.HandleFunc("/about", handlers.About)
+	mux.HandleFunc("/collection", handlers.Collection)
+	mux.HandleFunc("/anime/{id}", handlers.Detail)
+	mux.HandleFunc("/favorites", handlers.Favorites)
+	mux.HandleFunc("/search", handlers.Search)
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	mux.HandleFunc("/", handlers.NotFound)
+	return mux
+}
+
 func main() {
-	http.HandleFunc("/", handlers.Home)
 	fmt.Println("Le serveur est allumé sur http://localhost:8080")
 
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", routes())
 	if err != nil {
 		fmt.Println("Erreur lors du démarrage du serveur :", err)
 	}
