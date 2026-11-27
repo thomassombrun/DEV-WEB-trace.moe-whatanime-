@@ -1,6 +1,7 @@
 package models
 
 type SceneMatch struct {
+	AniListID         int
 	Title             string
 	Episode           string
 	From              float64

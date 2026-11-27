@@ -38,6 +38,13 @@
             </figure>
             {{end}}
         </div>
+        {{if and (gt .AniListID 0) .Title}}
+        <form action="/favorites/add" method="post">
+            <input type="hidden" name="anilist_id" value="{{.AniListID}}">
+            <input type="hidden" name="title" value="{{.Title}}">
+            <button type="submit">Ajouter aux favoris</button>
+        </form>
+        {{end}}
         {{end}}
     </main>
 

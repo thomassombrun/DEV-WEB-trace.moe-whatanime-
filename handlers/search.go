@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"trace.moe-whatanime/api"
+	"trace.moe-whatanime/library"
 	"trace.moe-whatanime/models"
 )
 
@@ -52,7 +52,7 @@ func searchImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, err := api.SearchImage(r.Context(), image)
+	result, err := library.SearchImage(r.Context(), image)
 	if err != nil {
 		fmt.Println("Erreur recherche :", err)
 		renderPage(w, "search.html", http.StatusBadGateway, SearchData{Message: "La recherche est indisponible pour le moment."})

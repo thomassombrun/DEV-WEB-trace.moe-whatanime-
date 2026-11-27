@@ -14,6 +14,8 @@ func routes() *http.ServeMux {
 	mux.HandleFunc("/collection", handlers.Collection)
 	mux.HandleFunc("/anime/{id}", handlers.Detail)
 	mux.HandleFunc("/favorites", handlers.Favorites)
+	mux.HandleFunc("POST /favorites/add", handlers.AddFavorite)
+	mux.HandleFunc("POST /favorites/delete", handlers.RemoveFavorite)
 	mux.HandleFunc("/search", handlers.Search)
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	mux.HandleFunc("/", handlers.NotFound)

@@ -11,6 +11,21 @@
 
     <main>
         <h1>Favoris</h1>
+        {{if .}}
+        <ul>
+            {{range .}}
+            <li>
+                {{.Title}}
+                <form action="/favorites/delete" method="post" style="display: inline;">
+                    <input type="hidden" name="anilist_id" value="{{.AniListID}}">
+                    <button type="submit" aria-label="Retirer {{.Title}} des favoris">Retirer</button>
+                </form>
+            </li>
+            {{end}}
+        </ul>
+        {{else}}
+        <p>Aucun anime en favoris.</p>
+        {{end}}
     </main>
 
     {{template "footer" .}}
