@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"io"
@@ -12,8 +13,10 @@ import (
 )
 
 type SearchData struct {
-	Result  *models.SceneMatch
-	Message string
+	Result      *models.SceneMatch
+	Message     string
+	ImageType   string
+	ImageBase64 string
 }
 
 func Search(w http.ResponseWriter, r *http.Request) {
@@ -43,7 +46,8 @@ func searchImage(w http.ResponseWriter, r *http.Request) {
 	defer file.Close()
 
 	image, err := io.ReadAll(file)
-	if err != nil || !strings.HasPrefix(http.DetectContentType(image), "image/") {
+	imageType := http.DetectContentType(image)
+	if err != nil || !strings.HasPrefix(imageType, "image/") {
 		renderPage(w, "search.html", http.StatusBadRequest, SearchData{Message: "Le fichier doit être une image valide."})
 		return
 	}
@@ -59,5 +63,9 @@ func searchImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderPage(w, "search.html", http.StatusOK, SearchData{Result: result})
+	renderPage(w, "search.html", http.StatusOK, SearchData{
+		Result:      result,
+		ImageType:   imageType,
+		ImageBase64: base64.StdEncoding.EncodeToString(image),
+	})
 }

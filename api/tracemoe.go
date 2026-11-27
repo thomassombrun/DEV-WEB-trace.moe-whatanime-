@@ -61,6 +61,7 @@ func SearchImage(ctx context.Context, image []byte) (*models.SceneMatch, error) 
 			From       float64         `json:"from"`
 			To         float64         `json:"to"`
 			Similarity float64         `json:"similarity"`
+			Image      string          `json:"image"`
 		} `json:"result"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
@@ -110,5 +111,6 @@ func SearchImage(ctx context.Context, image []byte) (*models.SceneMatch, error) 
 		From:              best.From,
 		To:                best.To,
 		SimilarityPercent: best.Similarity * 100,
+		ImageURL:          best.Image,
 	}, nil
 }

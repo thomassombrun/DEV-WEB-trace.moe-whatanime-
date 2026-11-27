@@ -26,6 +26,18 @@
         {{if .Episode}}<p>Épisode {{.Episode}}</p>{{end}}
         <p>Scène de {{printf "%.1f" .From}} s à {{printf "%.1f" .To}} s</p>
         <p>Similarité {{printf "%.1f" .SimilarityPercent}} %</p>
+        <div class="image-comparison">
+            <figure>
+                <img src="data:{{$.ImageType}};base64,{{$.ImageBase64}}" alt="Capture envoyée">
+                <figcaption>Ta capture</figcaption>
+            </figure>
+            {{if .ImageURL}}
+            <figure>
+                <img src="{{.ImageURL}}" alt="Aperçu de la scène de {{.Title}}">
+                <figcaption>Aperçu trace.moe</figcaption>
+            </figure>
+            {{end}}
+        </div>
         {{end}}
     </main>
 

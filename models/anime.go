@@ -6,4 +6,5 @@ type SceneMatch struct {
 	From              float64
 	To                float64
 	SimilarityPercent float64
+	ImageURL          string
 }
